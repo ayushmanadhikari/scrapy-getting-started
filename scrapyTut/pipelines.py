@@ -33,17 +33,16 @@ class ScrapytutPipeline:
         """)
     
     def store_db(self, item):
-        self.cursor.execute(""""
-            insert into quotes_tbl values (?,?,?)
-        """(
+        self.cursor.execute("""
+            insert into quotes_tbl values (?,?,?)""", (
             item['title'][0],
-            item['author'][0],
-            item['tags'][0]
+            item['author'][0], 
+            item['tags'][0] 
         ))
         self.conn.commit()
 
 
 
     def process_item(self, item, spider):
-        print("Pipeline:" + item['title'][0])
+        self.store_db(item)
         return item
